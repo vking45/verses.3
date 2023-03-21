@@ -7,11 +7,42 @@ collection Verse {
     // The title of the verse, max 50 characters.
     title : string;
 
-    // The address of the creator of the verse.
+    // The collection to which this verse belongs to.
+    collection? : Collection;
+
+    // The creator of the verse.
     creator : User;
 
-    // The list of unique users who have liked the verse.
-    likes : User[];
+    // The main content of the verse.
+    content : string;
+
+    // The list of unique users who have favorited the verse.
+    favorites : User[];
+
+}
+
+@public
+collection Collection {
+
+    id : string;
+
+    // The name of the collection, max 50 characters.
+    name : string;
+
+    // The user who has created the user.
+    creator : User;
+
+    // To indicate whether the collection is public or private.
+    private : boolean;
+
+    // The price of the collection to be paid by the user.
+    price? : number;
+
+    // The number of people who have subscribed to the collection.
+    subscribers : User[];
+
+    // The verses that are inside the collection.
+    verses : Verse[];
 
 }
 
@@ -23,7 +54,27 @@ collection User {
 
     pen_name : string;
 
-    // Max 200 characters 
-    bio : string;
+    // The topics that this creator/user generally likes/follows.
+    topics : Topic[];
+
+}
+
+@public
+collection Comment {
+
+    id : string;
+
+    // The main content of the comment.
+    comment : string;
+
+    // The verse on which this comment has been posted.
+    verse : Verse;
+
+}
+
+@public 
+collection Topic {
+
+    id : string;
 
 }
