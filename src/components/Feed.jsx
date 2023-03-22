@@ -3,7 +3,7 @@ import React from 'react'
 function Feed() {
   return (
     <div className="bg-main h-full font-jura">
-  <div class="container px-5 py-12 mx-auto">
+  <div class="container  py-12 mx-auto">
     <div class="flex flex-wrap -m-4">
       <div class="p-4 lg:w-1/3">
         <div class="h-full bg-thor bg-opacity-75 px-8 pt-8 pb-12 rounded-xl overflow-hidden text-start relative">
@@ -49,9 +49,9 @@ function Feed() {
       <div class="h-full bg-sherlock bg-opacity-75 px-8 pt-8 pb-12 rounded-xl overflow-hidden text-start relative">
           <h1 class=" text-3xl font-medium text-primary mb-3">Raclette Blueberry Nextious Level</h1>
           <h2 class="tracking-wide text-md title-font font-bold text-secondary bg-watson rounded-2xl mb-2 w-fit px-4 py-0.5">Creator</h2>
-          <hr class="h-px opacity-50 my-1 bg-loki border-0 "></hr>
+          <hr class="h-px opacity-50 my-1 bg-watson border-0 "></hr>
           <h2 class="tracking-widest text-md title-font font-semibold text-primary rounded-lg  w-fit px-4 py-0.5">Touch of wood | Assesnce </h2>
-          <hr class="h-px opacity-50 my-1 bg-loki border-0 "></hr>
+          <hr class="h-px opacity-50 my-1 bg-watson border-0 "></hr>
           <p class="leading-relaxed mb-3 text-primary text-xl">Photo booth fam kinfolk cold-pressed sriracha leggings jianbing microdosing tousled waistcoat.</p>
           <div class="text-center mt-2 leading-none flex justify-center absolute bottom-0 left-0 w-full py-4 text-primary">
             <span class="text-primary mr-3 inline-flex items-center leading-none text-sm pr-3 py-1 border-r-2 border-opacity-10 border-gray-200">
