@@ -1,7 +1,18 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Feed from './Feed';
+import { useAuth } from '@polybase/react';
+import { db } from '../App';
 
 function Profile() {
+    const { auth, state, loading } = useAuth();
+    const profileReference = db.collection("");
+
+    useEffect(() => {
+        (async () => {
+            
+        })();
+      }, []);
+
   return (
     <div className='font-jura bg-main'>
 
