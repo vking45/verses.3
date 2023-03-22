@@ -8,7 +8,7 @@ collection Verse {
     title : string;
 
     // The collection to which this verse belongs to.
-    collection? : Collection;
+    collectiion? : Collection;
 
     // The creator of the verse.
     creator : User;
@@ -18,6 +18,34 @@ collection Verse {
 
     // The list of unique users who have favorited the verse.
     favorites : User[];
+
+    // The unix timestamp at which the verse was created.
+    timestamp : number;
+
+    constructor (id : string, title : string, collectiion? : Collection, creator : User, content : string, timestamp : number) {
+        this.id = id;
+        this.title = title;
+        this.collectiion = collectiion;
+        this.creator = creator;
+        this.content = content;
+        this.timestamp = timestamp;
+        this.favorites = [];
+    }
+
+    addFavorite (new_user : User) {
+        
+        if(new_user.id != ctx.publicKey) {
+            throw error('Authorization Error!');
+        }
+
+        if(new_user == this.creator) {
+            throw error('Cannot favorite your own verse!');
+        }
+        this.creator.balance += 1;
+        new_user.balance -= 1;
+        this.favorites.push(new_user);
+
+    }
 
 }
 
@@ -36,13 +64,58 @@ collection Collection {
     private : boolean;
 
     // The price of the collection to be paid by the user.
-    price? : number;
+    price : number;
 
     // The number of people who have subscribed to the collection.
     subscribers : User[];
 
     // The verses that are inside the collection.
     verses : Verse[];
+
+    // The unix timestamp at which the comment was made.
+    timestamp : number;
+
+    constructor (id : string, name : string, creator : User, private : boolean, price : number, timestamp : number) {
+        this.id = id;
+        this.name = name;
+        this.creator = creator;
+        this.private = private;
+        this.price = price;
+        this.timestamp = timestamp;
+        this.subscribers = [];
+        this.verses = [];
+    }
+
+    addVerse (new_verse : Verse) {
+
+        if(ctx.publicKey != this.creator.id) {
+            throw error('Only the creator can add verse to the collection');
+        }
+
+        if(new_verse.creator.id != ctx.publicKey) {
+            throw error('You can only add verses that are created by you!');
+        }
+
+        this.verses = this.verses.append(new_verse);
+    }
+
+    addSubscriber (new_sub : User) {
+
+        if(new_sub.id != ctx.publicKey) {
+            throw error('Authorization Error!');
+        }
+
+        if(new_sub == this.creator) {
+            throw error('Cannot subscribe your own verse!');
+        }
+
+        if(this.private == true) {
+            this.creator.balance += this.price;
+            new_sub -= this.price;
+        }
+
+        this.subscribers.push(new_sub);
+    }
 
 }
 
@@ -57,6 +130,16 @@ collection User {
     // The topics that this creator/user generally likes/follows.
     topics : Topic[];
 
+    // The token balance of the user.
+    balance : number;
+
+    constructor (pen_name : string) {
+        this.pen_name = pen_name;
+        this.id = ctx.publicKey;
+        this.topics = [];
+        this.balance = 10000;
+    }
+
 }
 
 @public
@@ -67,8 +150,27 @@ collection Comment {
     // The main content of the comment.
     comment : string;
 
+    // The User who created the comment.
+    user : User;
+
     // The verse on which this comment has been posted.
     verse : Verse;
+
+    // The unix timestamp at which the comment was made.
+    timestamp : number;
+
+    constructor (id : string, comment : string, verse : Verse, timestamp : number, user : User) {
+
+        if(user.id != ctx.publicKey) {
+            throw error('Authorization Error!');
+        }
+
+        this.user = user;
+        this.id = id;
+        this.comment = comment;
+        this.verse = verse;
+        this.timestamp = timestamp;
+    }
 
 }
 
@@ -76,5 +178,9 @@ collection Comment {
 collection Topic {
 
     id : string;
+
+    constructor (id : string) {
+        this.id = id;
+    }
 
 }
