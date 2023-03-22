@@ -34,7 +34,7 @@ collection Verse {
 
     addFavorite (new_user : User) {
         
-        if(new_user.id != ctx.publicKey) {
+        if(new_user.id != ctx.publicKey.toHex()) {
             throw error('Authorization Error!');
         }
 
@@ -88,11 +88,11 @@ collection Collection {
 
     addVerse (new_verse : Verse) {
 
-        if(ctx.publicKey != this.creator.id) {
+        if(ctx.publicKey.toHex() != this.creator.id) {
             throw error('Only the creator can add verse to the collection');
         }
 
-        if(new_verse.creator.id != ctx.publicKey) {
+        if(new_verse.creator.id != ctx.publicKey.toHex()) {
             throw error('You can only add verses that are created by you!');
         }
 
@@ -101,7 +101,7 @@ collection Collection {
 
     addSubscriber (new_sub : User) {
 
-        if(new_sub.id != ctx.publicKey) {
+        if(new_sub.id != ctx.publicKey.toHex()) {
             throw error('Authorization Error!');
         }
 
@@ -123,7 +123,7 @@ collection Collection {
 collection User {
 
     // The PublicKey of the connected wallet. 
-    id : PublicKey;
+    id : string;
 
     pen_name : string;
 
@@ -135,7 +135,7 @@ collection User {
 
     constructor (pen_name : string) {
         this.pen_name = pen_name;
-        this.id = ctx.publicKey;
+        this.id = ctx.publicKey.toHex();
         this.topics = [];
         this.balance = 10000;
     }
@@ -161,7 +161,7 @@ collection Comment {
 
     constructor (id : string, comment : string, verse : Verse, timestamp : number, user : User) {
 
-        if(user.id != ctx.publicKey) {
+        if(user.id != ctx.publicKey.toHex()) {
             throw error('Authorization Error!');
         }
 
