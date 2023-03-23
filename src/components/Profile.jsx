@@ -5,11 +5,10 @@ import { db } from '../App';
 
 function Profile() {
     const { auth, state, loading } = useAuth();
-    const profileReference = db.collection("");
+    
 
     useEffect(() => {
         (async () => {
-            
         })();
       }, []);
 
