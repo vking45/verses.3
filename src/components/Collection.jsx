@@ -1,6 +1,38 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react';
+import { useAuth } from '@polybase/react';
+import { db } from '../App';
 
 function Collection() {
+  const { auth, state, loading } = useAuth();
+  const collectionRef = db.collection("Collection");
+
+  const fetchPublic = async() => {
+    const collects = await collectionRef.where("private", "==", false).get();
+    return collects;
+  }
+
+  const fetchPvt = async() => {
+    const collects = await collectionRef.where("private", "==", true).get();
+    return collects;
+  }
+
+  const [pubCollections, setPublic] = useState([]);
+  const [pvtCollections, setPvt] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+
+      db.signer(async(data) => {
+        return{
+          h: 'eth-personal-sign',
+          sig: await auth.ethPersonalSign(data)
+        }
+      });
+
+    })();
+  }, []);
+
+
   return (
 <div className='font-jura bg-main h-screen text-center'>
 <h1 class="sm:text-3xl text-3xl font-medium title-font text-primary mb-4">Collection</h1>
