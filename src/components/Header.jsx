@@ -1,6 +1,55 @@
-import React from 'react'
+import React, {useEffect} from 'react';
+import { useAuth } from '@polybase/react';
+import { db } from '../App';
 
 function Header() {
+  const { auth, state, loading } = useAuth();
+  const profileReference = db.collection("User");
+
+  const connect = async () => {
+    const authState = await auth.signIn();
+    if(authState){
+      await checkUser(authState);
+      return authState;
+    } else {
+      return null;
+    }
+  }
+
+const checkUser = async (res) => {
+//  const res = await connect();
+  if(res !== null) {
+    try {
+    const { data, block } = await profileReference.record(res.publicKey).get();
+    console.log(data, block);
+    } catch(error) {
+      if(error == "Error: record/not-found error") {
+        const recordData = await profileReference.create([
+          "New User"
+        ]);  
+      }
+    }
+
+  } else {
+    await connect();
+  }
+}  
+
+  useEffect(() => {
+    (async () => {
+
+      db.signer(async(data) => {
+        return{
+          h: 'eth-personal-sign',
+          sig: await auth.ethPersonalSign(data)
+        }
+      });
+
+    })();
+  }, []);
+
+
+
   return (
     <div className="bg-main">
         <header class="text-gray-600 body-font">

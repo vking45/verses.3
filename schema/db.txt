@@ -140,6 +140,13 @@ collection User {
         this.balance = 10000;
     }
 
+    updateName (new_pen : string) {
+        if(this.id != ctx.publicKey.toHex()) {
+          throw error('Authorization Error!');
+        }    
+        this.pen_name = new_pen;
+    }
+
 }
 
 @public

@@ -23,13 +23,13 @@ function App() {
       <PolybaseProvider polybase={polybase}>
         <AuthProvider auth={auth} polybase={polybase}>
         <Router>
+          <Header />
           <Routes>
-            <Header />
-              <Route path="/" element={<Verse />} />
+              <Route path="/" element={<Feed />} />
               <Route path="/profile/" element={<Profile />} />
-              <Route path="/feed/" element={<Feed />} />
-            <BNavbar />
+              <Route path="/collections/" element={<Collection />} />
           </Routes>
+          <BNavbar />
         </Router>
         </AuthProvider>
       </PolybaseProvider>
