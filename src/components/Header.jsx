@@ -61,7 +61,8 @@ const checkUser = async (res) => {
       <span class="ml-3 text-5xl font-jura font-semibold text-primary">Verses.3</span>
     </a>
     <div class="lg:w-2/5 inline-flex lg:justify-end ml-5 lg:ml-0">
-      
+    <button type="button" class="text-primary bg-secondary hover:bg-main font-jura font-medium rounded-lg text-md px-5 py-2.5 mr-2 mb-2">Connect Wallet</button>
+  
     </div>
   </div>
 </header>
