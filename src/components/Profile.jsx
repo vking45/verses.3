@@ -1,14 +1,63 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import Feed from './Feed';
-import { useAuth } from '@polybase/react';
+import { useAuth, useIsAuthenticated } from '@polybase/react';
 import { db } from '../App';
 
 function Profile() {
-    const { auth, state, loading } = useAuth();
+    const { auth, state, loadng } = useAuth();
+    const [isLoggedIn, loading] = useIsAuthenticated();
+    const profileReference = db.collection("User");
+    const [user, setUser] = useState({id : "0x000..", balance : "0", pen_name : "loading..."});
+
+    const connect = async () => {
+        const authState = await auth.signIn();
+        if(authState){
+          const profInst = await checkUser(authState);
+          return profInst;
+        } else {
+          return null;
+        }
+      }
     
+    const checkUser = async (res) => {
+    //  const res = await connect();
+      if(res !== null) {
+        try {
+        const { data, block } = await profileReference.record(res.publicKey).get();
+        console.log(data, block);
+        return data;
+        } catch(error) {
+          if(error == "Error: record/not-found error") {
+            const recordData = await profileReference.create([
+              "New User"
+            ]);  
+            return recordData;
+        }
+        }
+    
+      } else {
+        await connect();
+      }
+    }  
 
     useEffect(() => {
         (async () => {
+            if(!isLoggedIn) {
+                const _user = await connect();
+                setUser(_user);
+            } else {
+                const _user = await checkUser(state);
+                setUser(_user);
+            }
+            
+            console.log(user);
+
+            db.signer(async(data) => {
+                return{
+                  h: 'eth-personal-sign',
+                  sig: await auth.ethPersonalSign(data)
+                }
+              });
         })();
       }, []);
 
@@ -21,10 +70,10 @@ function Profile() {
       
         <div class="flex flex-col gap-1 text-center">
             <a class="block mx-auto bg-center bg-no-repeat bg-cover w-20 h-20 rounded-full border border-gray-400 shadow-lg" href="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg"></a>
-            <p class="text-primary font-semibold">Marina Davinchi
+            <p class="text-primary font-semibold">{loading ? "" : user.pen_name}
             </p>
-            <span class="text-sm text-primary">Token Balance</span>
-            <span class="text-sm text-primary">Wallet Address</span>
+            <span class="text-sm text-primary">Token Balance : {loading ? "" : user.balance}</span>
+            <span class="text-sm text-primary">Wallet Address : {loading ? "" : user.id.slice(0,20)}...</span>
         </div>
 
 
