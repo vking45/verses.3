@@ -12,7 +12,7 @@ function BNavbar() {
                     </svg>
                     <span class="text-lg text-primary font-jura font-medium">Home</span>
                 </Link>
-                <Link type="button" class="inline-flex flex-col py-3 items-center justify-center px-5 w-1/3">
+                <Link to='/create/' type="button" class="inline-flex flex-col py-3 items-center justify-center px-5 w-1/3">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 mx-1 text-primary">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
