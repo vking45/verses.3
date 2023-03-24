@@ -16,24 +16,24 @@ function Header() {
     }
   }
 
-const checkUser = async (res) => {
-//  const res = await connect();
-  if(res !== null) {
-    try {
-    const { data, block } = await profileReference.record(res.publicKey).get();
-    console.log(data, block);
-    } catch(error) {
-      if(error == "Error: record/not-found error") {
-        const recordData = await profileReference.create([
-          "New User"
-        ]);  
+  const checkUser = async (res) => {
+  //  const res = await connect();
+    if(res !== null) {
+      try {
+      const { data, block } = await profileReference.record(res.publicKey).get();
+      console.log(data, block);
+      } catch(error) {
+        if(error == "Error: record/not-found error") {
+          const recordData = await profileReference.create([
+            "New User"
+          ]);  
+        }
       }
-    }
 
-  } else {
-    await connect();
-  }
-}  
+    } else {
+      await connect();
+    }
+  }  
 
   useEffect(() => {
     (async () => {
@@ -61,7 +61,7 @@ const checkUser = async (res) => {
       <span class="ml-3 text-5xl font-jura font-semibold text-primary">Verses.3</span>
     </a>
     <div class="lg:w-2/5 inline-flex lg:justify-end ml-5 lg:ml-0">
-    <button type="button" class="text-primary bg-secondary hover:bg-main font-jura font-medium rounded-lg text-md px-5 py-2.5 mr-2 mb-2">Connect Wallet</button>
+    <button onClick={connect} type="button" class="text-primary bg-secondary hover:bg-main font-jura font-medium rounded-lg text-md px-5 py-2.5 mr-2 mb-2">{ state ? state.userId.slice(0,10) + "..." + state.userId.slice(-1) :  "Connect Wallet"}</button>
   
     </div>
   </div>

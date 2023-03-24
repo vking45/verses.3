@@ -23,8 +23,7 @@ function Profile() {
     //  const res = await connect();
       if(res !== null) {
         try {
-        const { data, block } = await profileReference.record(res.publicKey).get();
-        console.log(data, block);
+        const data = await profileReference.record(res.publicKey).get();
         return data;
         } catch(error) {
           if(error == "Error: record/not-found error") {
@@ -49,8 +48,6 @@ function Profile() {
                 const _user = await checkUser(state);
                 setUser(_user);
             }
-            
-            console.log(user);
 
             db.signer(async(data) => {
                 return{
