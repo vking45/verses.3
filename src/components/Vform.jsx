@@ -2,8 +2,8 @@ import React from 'react'
 
 function Vform() {
   return (
-    <div className='w-full h-full'>
-        <section class="bg-main font-jura">
+    <div className='bg-main h-screen'>
+        <section class=" font-jura">
   <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
       <form action="#">
           <div class="grid gap-4 sm:grid-cols-1 sm:gap-6">

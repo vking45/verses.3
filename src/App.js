@@ -9,7 +9,9 @@ import Feed from "./components/Feed";
 import Verse from "./components/Verse";
 import Profile from "./components/Profile";
 import Collection from "./components/Collection";
-
+import Vform from "./components/Vform";
+import Cform from "./components/Cform";
+import Create from "./components/Create";
 const polybase = new Polybase();
 const auth = new Auth()
 
@@ -26,7 +28,7 @@ function App() {
           <Header />
           <Routes>
               <Route path="/" element={<Feed />} />
-              <Route path="/profile/" element={<Profile />} />
+              <Route path="/profile/" element={<Cform />} />
               <Route path="/collections/" element={<Collection />} />
           </Routes>
           <BNavbar />
