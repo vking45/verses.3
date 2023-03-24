@@ -30,7 +30,7 @@ function App() {
           <Header />
           <Routes>
               <Route path="/" element={<Feed />} />
-              <Route path="/profile/" element={<Cform />} />
+              <Route path="/profile/" element={<Profile />} />
               <Route path="/collections/" element={<Collection />} />
               <Route path="/create/" element={<Create />} />
               <Route path="/create/verse/" element={<Vform />} />
