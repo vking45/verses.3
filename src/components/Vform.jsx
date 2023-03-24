@@ -20,24 +20,33 @@ function Vform() {
     const versesReference = db.collection("Verse");
     const collectionRef = db.collection("Collection");
 
-    const fetchCollections = async (_user) => {
-      const collections = await collectionRef.where("creator", "==", _user).get();
-      return collections;
+    const fetchCollections = async () => {
+      let temp = [];
+      const temp_user = profileReference.record(state.publicKey)
+      const collections = await collectionRef.get();
+      for( const i in collections.data) {
+        if(collections.data[i].data.creator.id == state.publicKey){
+          temp.push(collections.data[i].data);
+        }
+      }
+      console.log(temp);
+      return temp;
     }
 
     const onCreate = async () => {
       const dateTime = dayjs();
-      const _coll = await collectionRef.where("id", "==", collection).get();
+      console.log(collectionRef.record(collection));
       try {
       const recordData = await versesReference.create([
         title + state.publicKey,
         title,
-        _coll,
-        user,
+        collectionRef.record(collection),
+        profileReference.record(state.publicKey),
         content,
         dateTime.unix()
       ]);  
       console.log(recordData);
+      alert("Verse Created Successfully");
       } catch(error) {
         console.log(error);
       }
@@ -79,19 +88,17 @@ function Vform() {
                 const _user = await connect();
                 setUser(_user);
                 try{
-                  const _options = await fetchCollections(_user);
+                  const _options = await fetchCollections();
                   setOptions(_options);
-                  console.log(_options);
                 } catch (error) {
                   console.log(error);
                 }
-            } else {
+            } else {;
                 const _user = await checkUser(state);
                 setUser(_user);
                 try{
-                  const _options = await fetchCollections(_user);
+                  const _options = await fetchCollections();
                   setOptions(_options);
-                  console.log(_options);
                 } catch (error) {
                   console.log(error);
                 }

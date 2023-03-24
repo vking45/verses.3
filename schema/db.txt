@@ -23,6 +23,11 @@ collection Verse {
     timestamp : number;
 
     constructor (id : string, title : string, collectiion? : Collection, creator : User, content : string, timestamp : number) {
+
+        if(creator.id != ctx.publicKey.toHex()) {
+            throw error('Authorization Error!');
+        }     
+      
         this.id = id;
         this.title = title;
         this.collectiion = collectiion;
@@ -57,6 +62,9 @@ collection Collection {
     // The name of the collection, max 50 characters.
     name : string;
 
+    // A small description of the collection.
+    description : string;
+
     // The user who has created the user.
     creator : User;
 
@@ -75,9 +83,15 @@ collection Collection {
     // The unix timestamp at which the comment was made.
     timestamp : number;
 
-    constructor (id : string, name : string, creator : User, private : boolean, price : number, timestamp : number) {
+    constructor (id : string, name : string, description : string, creator : User, private : boolean, price : number, timestamp : number) {
+
+        if(creator.id != ctx.publicKey.toHex()) {
+            throw error('Authorization Error!');
+        }
+      
         this.id = id;
         this.name = name;
+        this.description = description;
         this.creator = creator;
         this.private = private;
         this.price = price;
