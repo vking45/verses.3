@@ -3,7 +3,7 @@ import React from 'react';
 function Feed() {
   return (
     <div className="bg-main h-full font-jura">
-  <div class="container  py-12 mx-auto">
+  <div class="container p-5 py-12 mx-auto">
     <div class="flex flex-wrap -m-4">
       <div class="p-4 lg:w-1/3">
         <div class="h-full bg-thor bg-opacity-75 px-8 pt-8 pb-12 rounded-xl overflow-hidden text-start relative">

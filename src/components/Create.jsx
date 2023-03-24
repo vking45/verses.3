@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 
 function Create() {
   return (
-    <div className='w-full h-full'>
-        <section class="h-full text-gray-600 body-font  bg-main font-jura">
+    <div className='bg-main h-screen'>
+        <section class="h-full text-gray-600 body-font font-jura">
   <div class="container px-5 py-24 mx-auto">
     <div class="flex flex-wrap -m-4">
       <div class="p-4 lg:w-1/2">
