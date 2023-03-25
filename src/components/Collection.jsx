@@ -69,11 +69,11 @@ function Collection() {
     <div class="flex flex-wrap -m-4">
       { view ?
           pubCollections.map((col) => (
-            <ColComp title={col.name} desc={col.description}  />
+            <ColComp title={col.name} desc={col.description} id={col.id} date={col.timestamp} />
           ))
       : 
           pvtCollections.map((col) => (
-            <ColComp title={col.name} desc={col.description}  />
+            <ColComp title={col.name} desc={col.description} id={col.id} date={col.timestamp} />
           ))
       }
     </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { db } from "../App";
 
 class FeedComp extends React.Component {
@@ -28,11 +29,13 @@ class FeedComp extends React.Component {
           <hr class="h-px opacity-50 my-1 bg-loki border-0 "></hr>
           <p class="leading-relaxed mb-3 text-primary text-xl" dangerouslySetInnerHTML={{__html : this.props.content.replace(/\n/g, "<br />").slice(0,99)}}></p>
           <div class="text-center mt-2 leading-none flex justify-center absolute bottom-0 left-0 w-full py-4 text-primary">
+            <Link to={`/collection/${this.props.id}/`}>
             <span class="text-primary mr-3 inline-flex items-center leading-none text-sm pr-3 py-1 border-r-2 border-opacity-10 border-gray-200">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 01-1.125-1.125v-3.75zM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-8.25zM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-2.25z" />
             </svg>
             </span>
+            </Link>
             <button onClick={() => {
               navigator.clipboard.writeText("http://localhost:3000/profile/" + this.props.verseId);
               alert("Link Copied To Clipboard!")

@@ -110,7 +110,7 @@ collection Collection {
             throw error('You can only add verses that are created by you!');
         }
 
-        this.verses = this.verses.append(new_verse);
+        this.verses.push(new_verse);
     }
 
     addSubscriber (new_sub : User) {

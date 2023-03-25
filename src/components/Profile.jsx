@@ -160,7 +160,7 @@ function Profile() {
           ))
           : 
             feedC.map((col) => (
-              <ProfColComp title={col.name} desc={col.description}  />            
+              <ProfColComp title={col.name} desc={col.description} id={col.id} />            
           ))
           }
         </div>

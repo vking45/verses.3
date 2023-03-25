@@ -12,6 +12,7 @@ import Collection from "./components/Collection";
 import Create from "./components/Create";
 import Vform from "./components/Vform";
 import Cform from "./components/Cform";
+import ColFeed from "./components/ColFeed";
 
 
 const polybase = new Polybase();
@@ -33,6 +34,7 @@ function App() {
               <Route path="/verse/:id" element={<Verse />} />
               <Route path="/profile/" element={<Profile />} />
               <Route path="/collections/" element={<Collection />} />
+              <Route path="/collection/:id" element={<ColFeed />} />
               <Route path="/create/" element={<Create />} />
               <Route path="/create/verse/" element={<Vform />} />
               <Route path="/create/collection/" element={<Cform />} />
