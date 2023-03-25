@@ -54,14 +54,19 @@ function Feed() {
       const _verses = await verseRef.get();
       for( const i in _verses.data) {
         if(_verses.data[i].data.content != ""){
-      //    console.log(_verses.data[i].data);
+          let likedArray = _verses.data[i].data.favorites;
           const t = await profileReference.where("id", "==" ,_verses.data[i].data.creator.id).get();
       //    console.log(t.data[0].data.pen_name);
           const c = await collectionRef.where("id", "==" ,_verses.data[i].data.collectiion.id).get();
       //    console.log(c.data[0].data.name);
           const found = feedV.find(el => el.title === _verses.data[i].data.title);
           if(!found){
-          feedV.push({ title : _verses.data[i].data.title, creator : t.data[0].data.pen_name, collectionName : c.data[0].data.name, collectionId : c.data[0].data.id, content : _verses.data[i].data.content})
+            const liked =  likedArray.find(el => el.id === state.publicKey);
+            if(!liked){
+              feedV.push({ verseId : _verses.data[i].data.id,title : _verses.data[i].data.title, creator : t.data[0].data.pen_name, collectionName : c.data[0].data.name, collectionId : c.data[0].data.id, content : _verses.data[i].data.content, liked : false});
+            } else {
+              feedV.push({ verseId : _verses.data[i].data.id,title : _verses.data[i].data.title, creator : t.data[0].data.pen_name, collectionName : c.data[0].data.name, collectionId : c.data[0].data.id, content : _verses.data[i].data.content, liked : true});
+            }
           }
         }
       }
@@ -74,7 +79,6 @@ function Feed() {
       });
 
       setLoaded(true);
-      console.log(feedV);
     })();
   }, []);
 
@@ -86,7 +90,7 @@ function Feed() {
           {loaded ?
 
             feedV.map((inst) => (
-              <FeedComp title={inst.title} creator={inst.creator} collection={inst.collectionName} id={inst.collectionId} content={inst.content}/>
+              <FeedComp user={state.publicKey} verseId={inst.verseId} liked={inst.liked} title={inst.title} creator={inst.creator} collection={inst.collectionName} id={inst.collectionId} content={inst.content}/>
             ))
 
           : 
