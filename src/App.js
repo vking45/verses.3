@@ -30,6 +30,7 @@ function App() {
           <Header />
           <Routes>
               <Route path="/" element={<Feed />} />
+              <Route path="/verse/:id" element={<Verse />} />
               <Route path="/profile/" element={<Profile />} />
               <Route path="/collections/" element={<Collection />} />
               <Route path="/create/" element={<Create />} />

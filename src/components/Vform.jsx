@@ -36,9 +36,10 @@ function Vform() {
     const onCreate = async () => {
       const dateTime = dayjs();
       console.log(collectionRef.record(collection));
+      let tempId = title + state.publicKey;
       try {
       const recordData = await versesReference.create([
-        title + state.publicKey,
+        String(tempId).replace(/\s/g, ""),
         title,
         collectionRef.record(collection),
         profileReference.record(state.publicKey),
