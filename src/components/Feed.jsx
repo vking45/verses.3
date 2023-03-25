@@ -83,7 +83,7 @@ function Feed() {
   }, []);
 
   return (
-    <div className="bg-main h-full font-jura">
+    <div className="bg-main h-screen font-jura">
       <div class="container p-5 py-12 mx-auto">
         <div class="flex flex-wrap -m-4">
 

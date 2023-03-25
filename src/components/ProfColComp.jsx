@@ -3,6 +3,7 @@ import React from "react";
 class ProfColComp extends React.Component {
     render() {
         return(
+          <div className="h-screen w-screen">
             <div class="p-4 lg:w-1/3">
             <div class="h-full bg-thor bg-opacity-40 px-8 pt-16 pb-24 rounded-lg overflow-hidden text-center relative">
               <h1 class="title-font sm:text-2xl text-xl font-medium text-primary mb-3">{this.props.title}</h1> <br />
@@ -14,6 +15,7 @@ class ProfColComp extends React.Component {
                 </svg>
               </a> <br />
             </div>
+          </div>
           </div>
         );
     }
