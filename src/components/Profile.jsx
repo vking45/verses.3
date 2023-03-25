@@ -5,9 +5,10 @@ import { db } from '../App';
 
 function Profile() {
     const { auth, state, loadng } = useAuth();
+    const [loaded, setLoaded] = useState(false);
     const [isLoggedIn, loading] = useIsAuthenticated();
     const profileReference = db.collection("User");
-    const [user, setUser] = useState({id : "0x000..", balance : "0", pen_name : "loading..."});
+    const [user, setUser] = useState({id : "0x000000000000000000000000000..", balance : "0", pen_name : "loading..."});
 
     const connect = async () => {
         const authState = await auth.signIn();
@@ -43,10 +44,10 @@ function Profile() {
         (async () => {
             if(!isLoggedIn) {
                 const _user = await connect();
-                setUser(_user);
+                setUser(_user.data);
             } else {
                 const _user = await checkUser(state);
-                setUser(_user);
+                setUser(_user.data);
             }
 
             db.signer(async(data) => {
@@ -55,6 +56,8 @@ function Profile() {
                   sig: await auth.ethPersonalSign(data)
                 }
               });
+
+            setLoaded(true);  
         })();
       }, []);
 
@@ -67,10 +70,10 @@ function Profile() {
       
         <div class="flex flex-col gap-1 text-center">
             <a class="block mx-auto bg-center bg-no-repeat bg-cover w-20 h-20 rounded-full border border-gray-400 shadow-lg" href="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg"></a>
-            <p class="text-primary font-semibold">{loading ? "" : user.pen_name}
+            <p class="text-primary font-semibold">{loaded ? user.pen_name : "" }
             </p>
-            <span class="text-sm text-primary">Token Balance : {loading ? "" : user.balance}</span>
-            <span class="text-sm text-primary">Wallet Address : {loading ? "" : user.id.slice(0,20)}...</span>
+            <span class="text-sm text-primary">Token Balance : {loaded ? user.balance : ""} </span>
+            <span class="text-sm text-primary">Wallet Address : {loaded ? user.id.slice(0,20) : ""}... </span>
         </div>
 
 

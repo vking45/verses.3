@@ -47,8 +47,10 @@ function Vform() {
       ]);  
       console.log(recordData);
       alert("Verse Created Successfully");
+      window.location.href = "/";
       } catch(error) {
         console.log(error);
+        alert(error);
       }
     }
 
@@ -124,7 +126,7 @@ function Vform() {
                 </div>
                 <div>
                     <select id="category" class="block py-2.5 px-0 w-full text-lg text-primary bg-main border-0 border-b-2 border-primary appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" onChange={(e) => setCollection(e.target.value)}>
-                        <option value="" defaultValue>Collection : None</option>
+                        <option value="" defaultValue>Select A Collection</option>
                         { options.length != 0 ?
                             options.map((opt) => (
                               <option value={opt["id"]}>{opt["name"]}</option>
@@ -136,7 +138,7 @@ function Vform() {
                 </div>
                 <div class="sm:col-span-2">
                     <label for="description" class="block mb-2 text-lg font-medium text-primary dark:text-white">Verse</label>
-                    <textarea onChange={(e) => (e.target.value)} id="description" rows="8" class="block p-2.5 w-full text-sm text-primary bg-secondary rounded-lg border border-main focus:ring-secondary focus:border-secondary " placeholder="Enter Your Creation Here"></textarea>
+                    <textarea onChange={(e) => setContent(e.target.value)} value={content} id="description" rows="8" class="block p-2.5 w-full text-sm text-primary bg-secondary rounded-lg border border-main focus:ring-secondary focus:border-secondary " placeholder="Enter Your Creation Here"></textarea>
                 </div>
             </div>
             <button onClick={onCreate} type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-lg font-medium text-center text-primary bg-secondary rounded-lg hover:bg-main">

@@ -22,20 +22,23 @@ function Cform() {
     const onCreate = async () => {
       const dateTime = dayjs();
       console.log(user);
+      let tempId = title + state.publicKey;
       try {
       const recordData = await collectionRef.create([
-        title + state.publicKey,
+        String(tempId).replace(/\s/g, ""),
         title,
         desc,
         profileReference.record(state.publicKey),
-        pvt,
-        price,
+        Boolean(pvt),
+        Number(price),
         dateTime.unix()
       ]);  
       console.log(recordData);
       alert("Collection Successfully Created!!");
+      window.location.href = "/";
       } catch(error) {
         console.log(error);
+        alert(error);
       }
     }
 
@@ -98,7 +101,7 @@ function Cform() {
               <input onChange={(e) => setTitle(e.target.value)} type="Title" class="block py-2.5 px-0 w-full text-lg text-primary bg-main border-0 border-b-2 border-primary appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="Collection Name" required />
               </div>
               <div class="sm:col-span-2">
-                <label for="description" class="block mb-2 text-lg font-medium text-primary dark:text-white">Verse</label>
+                <label for="description" class="block mb-2 text-lg font-medium text-primary dark:text-white">Collection</label>
                   <textarea onChange={(e) => setDesc(e.target.value)} id="description" rows="8" class="block p-2.5 w-full text-sm text-primary bg-secondary rounded-lg border border-main focus:ring-secondary focus:border-secondary " placeholder="Collection Description"></textarea>
                   <input onChange={(e) => setPvt(e.target.value)} id="checked-checkbox" type="checkbox" value={pvt} class="w-4 h-4 mt-2 bg-secondary text-primary rounded"/>
                 <label for="checked-checkbox" class="ml-2 mt-2 text-sm font-medium text-primary">Private Collection</label>
@@ -110,7 +113,7 @@ function Cform() {
               </div>
           </div>
           <button onClick={onCreate} type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-lg font-medium text-center text-primary bg-secondary rounded-lg hover:bg-main">
-              Add Verse
+              Create
           </button>
       </div>
   </div>
