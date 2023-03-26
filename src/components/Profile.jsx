@@ -108,7 +108,6 @@ function Profile() {
     <div class="px-3 py-2">
       
         <div class="flex flex-col gap-1 text-center">
-            <a class="block mx-auto bg-center bg-no-repeat bg-cover w-20 h-20 rounded-full border border-gray-400 shadow-lg" href="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg"></a>
             <p class="text-primary font-semibold">{loaded ? user.pen_name : "" }
             </p>
             <span class="text-sm text-primary">Token Balance : {loaded ? user.balance : ""} </span>
@@ -151,6 +150,7 @@ function Profile() {
   </div>
   </div>
 </div>
+  <div className="h-screen w-screen">
     <div className="bg-main h-full font-jura">
       <div class="container p-5 py-12 mx-auto">
         <div class="flex flex-wrap -m-4">
@@ -165,6 +165,7 @@ function Profile() {
           }
         </div>
       </div>
+    </div>
     </div>
     </div>
   )

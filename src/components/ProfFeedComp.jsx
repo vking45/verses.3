@@ -20,7 +20,6 @@ class ProfFeedComp extends React.Component {
 
     render() {
     return(
-        <div className="w-screen h-screen">
         <div class="p-4 lg:w-1/3">
         <div class="h-full bg-thor bg-opacity-75 px-8 pt-8 pb-12 rounded-xl overflow-hidden text-start relative">
           <h1 class=" text-3xl font-medium text-primary mb-3">{this.props.title}</h1>
@@ -46,7 +45,6 @@ class ProfFeedComp extends React.Component {
             </button>
           </div>
         </div>
-      </div>
       </div>
     );
     }
