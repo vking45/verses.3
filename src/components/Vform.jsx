@@ -47,8 +47,9 @@ function Vform() {
         dateTime.unix()
       ]);  
       console.log(recordData);
+      await collectionRef.record(collection).call("addVerse", [versesReference.record(String(tempId).replace(/\s/g, ""))]);
       alert("Verse Created Successfully");
-      window.location.href = "/";
+    //  window.location.href = "/";
       } catch(error) {
         console.log(error);
         alert(error);

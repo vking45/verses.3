@@ -59,13 +59,13 @@ function Feed() {
       //    console.log(t.data[0].data.pen_name);
           const c = await collectionRef.where("id", "==" ,_verses.data[i].data.collectiion.id).get();
       //    console.log(c.data[0].data.name);
-          const found = feedV.find(el => el.title === _verses.data[i].data.title);
+          const found = feedV.find(el => el.verseId === _verses.data[i].data.id);
           if(!found){
             const liked =  likedArray.find(el => el.id === state.publicKey);
             if(!liked){
-              feedV.push({ verseId : _verses.data[i].data.id,title : _verses.data[i].data.title, creator : t.data[0].data.pen_name, collectionName : c.data[0].data.name, collectionId : c.data[0].data.id, content : _verses.data[i].data.content, liked : false});
+              feedV.push({ verseId : _verses.data[i].data.id, title : _verses.data[i].data.title, creator : t.data[0].data.pen_name, collectionName : c.data[0].data.name, collectionId : c.data[0].data.id, content : _verses.data[i].data.content, liked : false});
             } else {
-              feedV.push({ verseId : _verses.data[i].data.id,title : _verses.data[i].data.title, creator : t.data[0].data.pen_name, collectionName : c.data[0].data.name, collectionId : c.data[0].data.id, content : _verses.data[i].data.content, liked : true});
+              feedV.push({ verseId : _verses.data[i].data.id, title : _verses.data[i].data.title, creator : t.data[0].data.pen_name, collectionName : c.data[0].data.name, collectionId : c.data[0].data.id, content : _verses.data[i].data.content, liked : true});
             }
           }
         }
