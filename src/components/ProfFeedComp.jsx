@@ -37,7 +37,7 @@ class ProfFeedComp extends React.Component {
             </span>
             </Link>
             <button onClick={() => {
-              navigator.clipboard.writeText("http://localhost:3000/profile/" + this.props.verseId);
+              navigator.clipboard.writeText("http://localhost:3000/verse/" + this.props.verseId);
               alert("Link Copied To Clipboard!")
             }}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

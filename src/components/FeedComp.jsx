@@ -7,7 +7,12 @@ class FeedComp extends React.Component {
     state = {rec : null, user : null}
 
     async addLike(inp, usr) {
+      try{
       inp.call("addFavorite", [usr]);
+      alert("Added To Favorites!!")
+      } catch (error) {
+        alert(error);
+      }
     }
 
     componentDidMount() {
@@ -22,9 +27,11 @@ class FeedComp extends React.Component {
     return(
         <div class="p-4 lg:w-1/3">
         <div class="h-full bg-thor bg-opacity-75 px-8 pt-8 pb-12 rounded-xl overflow-hidden text-start relative">
+          <Link to={`/verse/${this.props.verseId}/`}>
           <h1 class=" text-3xl font-medium text-primary mb-3">{this.props.title}</h1>
           <h2 class="tracking-wide text-md title-font font-bold text-secondary bg-loki rounded-2xl mb-2 w-fit px-4 py-0.5">{this.props.creator}</h2>
           <hr class="h-px opacity-50 my-1 bg-loki border-0 "></hr>
+          </Link>
           <h2 class="tracking-widest text-md title-font font-semibold text-primary rounded-lg  w-fit px-4 py-0.5">{this.props.collection}</h2>
           <hr class="h-px opacity-50 my-1 bg-loki border-0 "></hr>
           <p class="leading-relaxed mb-3 text-primary text-xl" dangerouslySetInnerHTML={{__html : this.props.content.replace(/\n/g, "<br />").slice(0,99)}}></p>
@@ -37,7 +44,7 @@ class FeedComp extends React.Component {
             </span>
             </Link>
             <button onClick={() => {
-              navigator.clipboard.writeText("http://localhost:3000/profile/" + this.props.verseId);
+              navigator.clipboard.writeText("http://localhost:3000/verse/" + this.props.verseId);
               alert("Link Copied To Clipboard!")
             }}>
             <span class="text-primary mr-3 inline-flex items-center leading-none text-sm pr-3 py-1 border-r-2 border-gray-200">

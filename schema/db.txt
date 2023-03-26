@@ -43,7 +43,7 @@ collection Verse {
             throw error('Authorization Error!');
         }
 
-        if(new_user == this.creator) {
+        if(new_user.id == this.creator.id ) {
             throw error('Cannot favorite your own verse!');
         }
         this.creator.balance += 1;
@@ -119,13 +119,13 @@ collection Collection {
             throw error('Authorization Error!');
         }
 
-        if(new_sub == this.creator) {
-            throw error('Cannot subscribe your own verse!');
+        if(new_sub.id == this.creator.id ) {
+            throw error('Cannot subscribe your own Collection!');
         }
 
         if(this.private == true) {
             this.creator.balance += this.price;
-            new_sub -= this.price;
+            new_sub.balance -= this.price;
         }
 
         this.subscribers.push(new_sub);
