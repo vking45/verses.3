@@ -18,7 +18,7 @@ import ColFeed from "./components/ColFeed";
 const polybase = new Polybase();
 const auth = new Auth()
 
-const db = new Polybase({
+export const db = new Polybase({
   defaultNamespace: "pk/0xa2498ad8880112c293663bef40030ce209a4c48d5ab6c5057eb8a7a6b2b8e792d88cf756106040e5d1555a1bf5c57236ef3d9f7f5b76dfb90b735494e2c05837/final_verses",
 });
 
