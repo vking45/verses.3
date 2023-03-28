@@ -3,6 +3,14 @@ import ProfFeedComp from './ProfFeedComp';
 import ProfColComp from './ProfColComp';
 import { useAuth, useIsAuthenticated } from '@polybase/react';
 import { db } from '../App';
+import { uniqueNamesGenerator, adjectives, colors, starWars, names } from 'unique-names-generator';
+
+const customConfig = {
+  dictionaries: [adjectives, colors, starWars, names],
+  separator: '-',
+  length: 2,
+  style: 'capital'
+};
 
 let feedV = [];
 let feedC = [];
@@ -36,7 +44,7 @@ function Profile() {
         } catch(error) {
           if(error == "Error: record/not-found error") {
             const recordData = await profileReference.create([
-              "New User"
+              uniqueNamesGenerator(customConfig)
             ]);  
             return recordData;
         }

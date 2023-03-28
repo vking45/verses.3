@@ -1,6 +1,14 @@
 import React, {useEffect} from 'react';
 import { useAuth } from '@polybase/react';
 import { db } from '../App';
+import { uniqueNamesGenerator, adjectives, colors, starWars, names } from 'unique-names-generator';
+
+const customConfig = {
+  dictionaries: [adjectives, colors, starWars, names],
+  separator: '-',
+  length: 2,
+  style: 'capital'
+};
 
 function Header() {
   const { auth, state, loading } = useAuth();
@@ -25,7 +33,7 @@ function Header() {
       } catch(error) {
         if(error == "Error: record/not-found error") {
           const recordData = await profileReference.create([
-            "New User"
+            uniqueNamesGenerator(customConfig)
           ]);  
         }
       }

@@ -2,6 +2,14 @@ import React, { useState, useEffect } from 'react';
 import FeedComp from './FeedComp';
 import { db } from '../App';
 import { useAuth, useIsAuthenticated } from '@polybase/react';
+import { uniqueNamesGenerator, adjectives, colors, starWars, names } from 'unique-names-generator';
+
+const customConfig = {
+  dictionaries: [adjectives, colors, starWars, names],
+  separator: '-',
+  length: 2,
+  style: 'capital'
+};
 
 let feedV = [];
 function Feed() {
@@ -32,7 +40,7 @@ function Feed() {
       } catch(error) {
         if(error == "Error: record/not-found error") {
           const recordData = await profileReference.create([
-            "New User"
+            uniqueNamesGenerator(customConfig)
           ]);  
           return recordData;
       }

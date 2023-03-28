@@ -4,8 +4,17 @@ import { useAuth, useIsAuthenticated } from '@polybase/react';
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import dayjs from "dayjs";
+import { uniqueNamesGenerator, adjectives, colors, starWars, names } from 'unique-names-generator';
 dayjs.extend(localizedFormat)
 dayjs.extend(relativeTime)
+
+
+const customConfig = {
+  dictionaries: [adjectives, colors, starWars, names],
+  separator: '-',
+  length: 2,
+  style: 'capital'
+};
 
 function Vform() {
     const { auth, state, loadng } = useAuth();
@@ -75,7 +84,7 @@ function Vform() {
         } catch(error) {
           if(error == "Error: record/not-found error") {
             const recordData = await profileReference.create([
-              "New User"
+              uniqueNamesGenerator(customConfig)
             ]);  
             return recordData;
         }
